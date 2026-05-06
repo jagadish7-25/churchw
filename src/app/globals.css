@@ -5,36 +5,12 @@
 }
 
 @layer utilities {
-  .liquid-glass {
-    background: rgba(255, 255, 255, 0.01);
-    background-blend-mode: luminosity;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    border: none;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .liquid-glass::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1.4px;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.45) 0%,
-      rgba(255, 255, 255, 0.15) 20%,
-      rgba(255, 255, 255, 0) 40%,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0.15) 80%,
-      rgba(255, 255, 255, 0.45) 100%
-    );
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
+  .montfort-glass {
+    background: rgba(25, 25, 25, 0.6);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
   }
 
   .animate-blur-fade-up {
@@ -56,17 +32,20 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background-color: black;
-  color: white;
+  background-color: #0a0a0a;
+  color: #f0f0f0;
   font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 0;
-  /* Hide scrollbar for cinematic look if scrolling is disabled anyway */
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* Custom hide scrollbar class if needed anywhere */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
