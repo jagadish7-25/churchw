@@ -1,10 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Cinzel, Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-cinzel",
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: 'swap',
+});
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -16,6 +29,20 @@ export const metadata: Metadata = {
     title: "St. Ann's RCM Church - Sattenapalle",
     description: "Welcome to our spiritual home. Join us in worship, prayer, and community.",
     type: "website",
+    images: [
+      {
+        url: "/church-image.png",
+        width: 1200,
+        height: 630,
+        alt: "St. Ann's RCM Church",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "St. Ann's RCM Church - Sattenapalle",
+    description: "Welcome to our spiritual home. Join us in worship, prayer, and community.",
+    images: ["/church-image.png"],
   },
 };
 
@@ -27,9 +54,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} h-full antialiased`}
+      className={`${cinzel.variable} ${playfair.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-gray-950 text-gray-100">
+        {children}
+      </body>
     </html>
   );
 }

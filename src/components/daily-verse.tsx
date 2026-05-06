@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { motion } from 'motion/react'
-import { BookOpen, RefreshCw } from 'lucide-react'
+import { BookOpen, RefreshCw, Quote } from 'lucide-react'
 
 const catholicBibleVerses = [
     { verse: "For God so loved the world that he gave his only Son, so that everyone who believes in him might not perish but might have eternal life.", reference: "John 3:16" },
@@ -17,7 +17,6 @@ const catholicBibleVerses = [
     { verse: "The fruit of the Spirit is love, joy, peace, patience, kindness, generosity, faithfulness, gentleness, self-control.", reference: "Galatians 5:22-23" },
     { verse: "Let all that you do be done in love.", reference: "1 Corinthians 16:14" },
     { verse: "Rejoice in the Lord always. I shall say it again: rejoice!", reference: "Philippians 4:4" },
-    { verse: "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness, gentleness, and self-control.", reference: "Galatians 5:22-23" },
     { verse: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", reference: "Romans 8:28" },
     { verse: "Let us not grow tired of doing good, for in due time we shall reap our harvest, if we do not give up.", reference: "Galatians 6:9" },
     { verse: "Be strong and courageous. Do not be afraid or terrified because of them, for the Lord your God goes with you.", reference: "Deuteronomy 31:6" },
@@ -58,8 +57,14 @@ export function DailyVerse() {
     }
 
     return (
-        <section className="py-16 bg-gradient-to-b from-amber-50 to-white dark:from-amber-950/20 dark:to-background">
-            <div className="max-w-4xl mx-auto px-6">
+        <section className="py-24 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl" />
+            </div>
+
+            <div className="max-w-4xl mx-auto px-6 relative z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -67,34 +72,50 @@ export function DailyVerse() {
                     transition={{ duration: 0.6 }}
                     className="text-center"
                 >
-                    <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-amber-100 dark:bg-amber-900/30 rounded-full">
-                        <BookOpen className="h-4 w-4 text-amber-700" />
-                        <span className="text-sm font-medium text-amber-900 dark:text-amber-100">Daily Verse</span>
-                    </div>
+                    {/* Header */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="inline-flex items-center gap-2 mb-8 px-6 py-3 glass rounded-full"
+                    >
+                        <BookOpen className="h-5 w-5 text-amber-500" />
+                        <span className="text-sm font-medium text-amber-400">Daily Verse</span>
+                    </motion.div>
 
+                    {/* Verse Card */}
                     <motion.div
                         key={verse.reference}
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5 }}
-                        className="bg-white dark:bg-gray-800 rounded-3xl p-8 md:p-12 shadow-xl border border-amber-200 dark:border-amber-800"
+                        className="relative glass rounded-3xl p-8 md:p-16 glow"
                     >
-                        <blockquote className="text-2xl md:text-3xl font-serif text-gray-800 dark:text-gray-100 leading-relaxed mb-6">
+                        {/* Quote Icon */}
+                        <div className="absolute top-8 left-8 opacity-20">
+                            <Quote className="h-24 w-24 text-amber-500" />
+                        </div>
+
+                        <blockquote className="text-2xl md:text-4xl font-serif text-gray-100 leading-relaxed mb-8 relative">
                             "{verse.verse}"
                         </blockquote>
-                        <cite className="text-amber-700 dark:text-amber-400 font-medium not-italic">
+
+                        <cite className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 font-medium not-italic">
                             — {verse.reference}
                         </cite>
                     </motion.div>
 
-                    <button
+                    {/* Refresh Button */}
+                    <motion.button
                         onClick={handleRefresh}
                         disabled={isAnimating}
-                        className="mt-6 inline-flex items-center gap-2 px-4 py-2 text-sm text-amber-700 hover:text-amber-800 dark:text-amber-400 dark:hover:text-amber-300 transition-colors disabled:opacity-50"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="mt-8 inline-flex items-center gap-2 px-6 py-3 glass rounded-full text-amber-400 hover:text-amber-300 transition-colors disabled:opacity-50"
                     >
-                        <RefreshCw className={`h-4 w-4 ${isAnimating ? 'animate-spin' : ''}`} />
+                        <RefreshCw className={`h-5 w-5 ${isAnimating ? 'animate-spin' : ''}`} />
                         <span>Another Verse</span>
-                    </button>
+                    </motion.button>
                 </motion.div>
             </div>
         </section>

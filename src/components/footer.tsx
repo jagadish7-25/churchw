@@ -1,13 +1,19 @@
 'use client'
 import { motion } from 'motion/react'
-import { Church, Heart, Mail, Phone, MapPin } from 'lucide-react'
+import { Church, Heart, Mail, Phone, MapPin, Cross, Sparkles } from 'lucide-react'
 
 export function Footer() {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="bg-gray-900 text-white">
-            <div className="max-w-7xl mx-auto px-6 py-16">
+        <footer className="bg-gray-950 border-t border-gray-800 relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl" />
+            </div>
+
+            <div className="max-w-7xl mx-auto px-6 py-16 relative z-10">
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
                     <FooterColumn
                         title="About Us"
@@ -28,9 +34,10 @@ export function Footer() {
                         title="Quick Links"
                         links={[
                             { label: "Home", href: "/" },
+                            { label: "About", href: "/about" },
                             { label: "Mass Times", href: "#mass-times" },
-                            { label: "Ministries", href: "#ministries" },
-                            { label: "Events", href: "#events" },
+                            { label: "Ministries", href: "/ministries" },
+                            { label: "Events", href: "/events" },
                             { label: "Contact", href: "#contact" },
                         ]}
                     />
@@ -108,7 +115,7 @@ function FooterColumn({ title, icon, content, links }: {
         >
             <div className="flex items-center gap-2 mb-4">
                 {icon && <div className="text-amber-500">{icon}</div>}
-                <h3 className="text-lg font-semibold">{title}</h3>
+                <h3 className="text-lg font-display font-semibold text-white">{title}</h3>
             </div>
             {content && <div className="text-gray-400">{content}</div>}
             {links && (

@@ -1,102 +1,185 @@
 'use client'
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { InfiniteSlider } from '@/components/ui/infinite-slider'
-import { ProgressiveBlur } from '@/components/ui/progressive-blur'
+import { Meteors } from '@/components/ui/meteors'
+import { Church3D } from '@/components/ui/church-3d'
 import { cn } from '@/lib/utils'
-import { Menu, X, ChevronRight, Church, Phone, MapPin, Calendar, Heart } from 'lucide-react'
-import { useScroll, motion, useTransform } from 'motion/react'
+import { Menu, X, ChevronRight, Church, Phone, MapPin, Calendar, Heart, Cross, Sparkles, Star } from 'lucide-react'
+import { motion, useScroll, useTransform, useSpring } from 'motion/react'
 
 export function HeroSection() {
+    const containerRef = useRef<HTMLDivElement>(null)
+    const { scrollYProgress } = useScroll()
+    const rotateY = useTransform(scrollYProgress, [0, 1], [0, 360])
+    const rotateX = useTransform(scrollYProgress, [0, 1], [0, 15])
+    const scale = useSpring(useTransform(scrollYProgress, [0, 0.5], [1, 1.2]), { stiffness: 100, damping: 30 })
+    const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.6])
+
     return (
         <>
             <HeroHeader />
             <main className="overflow-x-hidden">
-                <section>
-                    <div className="py-24 md:pb-32 lg:pb-36 lg:pt-72">
-                        <div className="relative z-10 mx-auto flex max-w-7xl flex-col px-6 lg:block lg:px-12">
-                            <div className="mx-auto max-w-lg text-center lg:ml-0 lg:max-w-full lg:text-left">
-                                <h1 className="mt-8 max-w-2xl text-balance text-5xl md:text-6xl lg:mt-16 xl:text-7xl font-bold bg-gradient-to-r from-amber-700 to-amber-900 bg-clip-text text-transparent">
-                                    St. Ann's RCM Church
-                                </h1>
-                                <p className="mt-8 max-w-2xl text-balance text-lg text-muted-foreground">
-                                    Welcome to our spiritual home. Join us in worship, prayer, and community as we grow together in faith and love.
-                                </p>
+                <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
+                    {/* Background Effects */}
+                    <div className="absolute inset-0 overflow-hidden">
+                        <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl animate-pulse" />
+                        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-amber-500/5 to-amber-600/5 rounded-full blur-3xl" />
+                        {/* Stars */}
+                        {[...Array(50)].map((_, i) => (
+                            <div
+                                key={i}
+                                className="absolute w-1 h-1 bg-amber-500/30 rounded-full animate-pulse"
+                                style={{
+                                    top: `${Math.random() * 100}%`,
+                                    left: `${Math.random() * 100}%`,
+                                    animationDelay: `${Math.random() * 3}s`,
+                                }}
+                            />
+                        ))}
+                    </div>
 
-                                <div className="mt-12 flex flex-col items-center justify-center gap-2 sm:flex-row lg:justify-start">
+                    {/* Meteors */}
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                        <Meteors number={30} />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 lg:py-32">
+                        <div className="grid lg:grid-cols-2 gap-12 items-center">
+                            {/* Text Content */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.8 }}
+                                className="text-center lg:text-left"
+                            >
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full"
+                                >
+                                    <Cross className="h-4 w-4 text-amber-500" />
+                                    <span className="text-sm font-medium text-amber-400">Welcome to Our Parish</span>
+                                </motion.div>
+
+                                <motion.h1
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                    className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6"
+                                >
+                                    <span className="font-display gradient-text glow-text">St. Ann's</span>
+                                    <br />
+                                    <span className="font-serif text-amber-400">RCM Church</span>
+                                </motion.h1>
+
+                                <motion.p
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.6 }}
+                                    className="text-lg md:text-xl text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0"
+                                >
+                                    A sacred space where faith comes alive. Join us in worship, prayer, and community as we grow together in God's love.
+                                </motion.p>
+
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.8 }}
+                                    className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                                >
                                     <Button
                                         asChild
                                         size="lg"
-                                        className="h-12 rounded-full pl-5 pr-3 text-base bg-amber-700 hover:bg-amber-800">
+                                        className="h-14 px-8 rounded-full bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold text-base shadow-lg shadow-amber-500/25 shine"
+                                    >
                                         <Link href="#mass-times">
-                                            <span className="text-nowrap">Mass Times</span>
-                                            <ChevronRight className="ml-1" />
+                                            <span className="text-nowrap">View Mass Times</span>
+                                            <ChevronRight className="ml-2 h-5 w-5" />
                                         </Link>
                                     </Button>
                                     <Button
-                                        key={2}
                                         asChild
                                         size="lg"
-                                        variant="ghost"
-                                        className="h-12 rounded-full px-5 text-base hover:bg-amber-50 dark:hover:bg-amber-950/20">
+                                        variant="outline"
+                                        className="h-14 px-8 rounded-full border-amber-500/50 text-amber-400 hover:bg-amber-500/10 font-semibold text-base"
+                                    >
                                         <Link href="#contact">
                                             <span className="text-nowrap">Contact Us</span>
                                         </Link>
                                     </Button>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="aspect-[2/3] absolute inset-1 overflow-hidden rounded-3xl border border-black/10 sm:aspect-video lg:rounded-[3rem] dark:border-white/5">
-                            <Church3DImage />
+                                </motion.div>
+
+                                {/* Quick Info */}
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 1 }}
+                                    className="mt-12 grid grid-cols-3 gap-4"
+                                >
+                                    <QuickInfo icon={<Church className="h-5 w-5" />} label="Sunday Mass" value="10:00 AM" />
+                                    <QuickInfo icon={<MapPin className="h-5 w-5" />} label="Location" value="Sattenapalle" />
+                                    <QuickInfo icon={<Phone className="h-5 w-5" />} label="Contact" value="08641-232260" />
+                                </motion.div>
+                            </motion.div>
+
+                            {/* 3D Church Model */}
+                            <motion.div
+                                ref={containerRef}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 1, delay: 0.3 }}
+                                className="relative"
+                            >
+                                <motion.div
+                                    style={{
+                                        rotateY,
+                                        rotateX,
+                                        scale,
+                                        opacity,
+                                    }}
+                                    className="relative w-full aspect-square max-w-lg mx-auto perspective-1000"
+                                >
+                                    <Church3D />
+                                </motion.div>
+                            </motion.div>
                         </div>
                     </div>
-                </section>
-                <section className="bg-background pb-2">
-                    <div className="group relative m-auto max-w-7xl px-6">
-                        <div className="flex flex-col items-center md:flex-row">
-                            <div className="md:max-w-44 md:border-r md:pr-6">
-                                <p className="text-end text-sm">Our Ministries</p>
-                            </div>
-                            <div className="relative py-6 md:w-[calc(100%-11rem)]">
-                                <InfiniteSlider
-                                    durationOnHover={20}
-                                    duration={40}
-                                    gap={112}>
-                                    <div className="flex items-center gap-2">
-                                        <Church className="h-5 w-5 text-amber-700" />
-                                        <span className="text-sm">Sunday School</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Heart className="h-5 w-5 text-amber-700" />
-                                        <span className="text-sm">Charity</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Calendar className="h-5 w-5 text-amber-700" />
-                                        <span className="text-sm">Youth Ministry</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <Phone className="h-5 w-5 text-amber-700" />
-                                        <span className="text-sm">Prayer Groups</span>
-                                    </div>
-                                    <div className="flex items-center gap-2">
-                                        <MapPin className="h-5 w-5 text-amber-700" />
-                                        <span className="text-sm">Outreach</span>
-                                    </div>
-                                </InfiniteSlider>
 
-                                <div className="bg-gradient-to-r from-background absolute inset-y-0 left-0 w-20"></div>
-                                <div className="bg-gradient-to-l from-background absolute inset-y-0 right-0 w-20"></div>
-                                <ProgressiveBlur
-                                    className="pointer-events-none absolute left-0 top-0 h-full w-20"
-                                    direction="left"
-                                    blurIntensity={1}
-                                />
-                                <ProgressiveBlur
-                                    className="pointer-events-none absolute right-0 top-0 h-full w-20"
-                                    direction="right"
-                                    blurIntensity={1}
-                                />
+                    {/* Scroll Indicator */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.5 }}
+                        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+                    >
+                        <motion.div
+                            animate={{ y: [0, 10, 0] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="w-6 h-10 border-2 border-amber-500/50 rounded-full flex items-start justify-center p-2"
+                        >
+                            <motion.div
+                                animate={{ y: [0, 12, 0] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="w-1.5 h-1.5 bg-amber-500 rounded-full"
+                            />
+                        </motion.div>
+                    </motion.div>
+                </section>
+
+                {/* Ministries Slider */}
+                <section className="py-16 bg-gray-950 border-t border-gray-800">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <div className="flex flex-col md:flex-row items-center gap-8">
+                            <div className="md:w-48 text-right">
+                                <p className="text-sm text-gray-400">Our Ministries</p>
+                                <p className="text-2xl font-display gradient-text">Serving God</p>
+                            </div>
+                            <div className="flex-1 overflow-hidden">
+                                <MinistriesSlider />
                             </div>
                         </div>
                     </div>
@@ -106,35 +189,52 @@ export function HeroSection() {
     )
 }
 
-const Church3DImage = () => {
-    const { scrollYProgress } = useScroll()
-    const rotateY = useTransform(scrollYProgress, [0, 1], [0, 360])
-    const scale = useTransform(scrollYProgress, [0, 0.5], [1, 1.1])
-    const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 0.4])
+function QuickInfo({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
+    return (
+        <div className="text-center p-4 glass rounded-xl">
+            <div className="flex justify-center mb-2 text-amber-500">{icon}</div>
+            <p className="text-xs text-gray-400 mb-1">{label}</p>
+            <p className="text-sm font-semibold text-white">{value}</p>
+        </div>
+    )
+}
+
+function MinistriesSlider() {
+    const ministries = [
+        { icon: <Church className="h-5 w-5" />, name: "Sunday School" },
+        { icon: <Heart className="h-5 w-5" />, name: "Charity Works" },
+        { icon: <Calendar className="h-5 w-5" />, name: "Youth Ministry" },
+        { icon: <Phone className="h-5 w-5" />, name: "Prayer Groups" },
+        { icon: <MapPin className="h-5 w-5" />, name: "Outreach" },
+        { icon: <Cross className="h-5 w-5" />, name: "Bible Study" },
+        { icon: <Sparkles className="h-5 w-5" />, name: "Music Ministry" },
+    ]
 
     return (
         <motion.div
-            style={{
-                rotateY,
-                scale,
-                opacity,
-            }}
-            className="size-full"
+            className="flex gap-8"
+            animate={{ x: [0, -500, 0] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         >
-            <img
-                src="/church-image.png"
-                alt="St. Ann's RCM Church"
-                className="size-full object-cover"
-            />
+            {[...ministries, ...ministries].map((ministry, index) => (
+                <div
+                    key={index}
+                    className="flex items-center gap-3 px-6 py-3 glass rounded-full whitespace-nowrap"
+                >
+                    <span className="text-amber-500">{ministry.icon}</span>
+                    <span className="text-sm text-gray-300">{ministry.name}</span>
+                </div>
+            ))}
         </motion.div>
     )
 }
 
 const menuItems = [
     { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
     { name: 'Mass Times', href: '#mass-times' },
-    { name: 'Ministries', href: '#ministries' },
-    { name: 'Events', href: '#events' },
+    { name: 'Ministries', href: '/ministries' },
+    { name: 'Events', href: '/events' },
     { name: 'Contact', href: '#contact' },
 ]
 
@@ -154,8 +254,8 @@ const HeroHeader = () => {
         <header>
             <nav
                 data-state={menuState && 'active'}
-                className="group fixed z-20 w-full pt-2">
-                <div className={cn('mx-auto max-w-7xl rounded-3xl px-6 transition-all duration-300 lg:px-12', scrolled && 'bg-background/50 backdrop-blur-2xl')}>
+                className="group fixed z-50 w-full pt-2">
+                <div className={cn('mx-auto max-w-7xl rounded-3xl px-6 transition-all duration-300 lg:px-12', scrolled && 'glass')}>
                     <motion.div
                         key={1}
                         className={cn('relative flex flex-wrap items-center justify-between gap-6 py-3 duration-200 lg:gap-0 lg:py-6', scrolled && 'lg:py-4')}>
@@ -171,8 +271,8 @@ const HeroHeader = () => {
                                 onClick={() => setMenuState(!menuState)}
                                 aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
                                 className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
-                                <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
-                                <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
+                                <Menu className="group-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200 text-amber-500" />
+                                <X className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200 text-amber-500" />
                             </button>
 
                             <div className="hidden lg:block">
@@ -181,7 +281,7 @@ const HeroHeader = () => {
                                         <li key={index}>
                                             <Link
                                                 href={item.href}
-                                                className="text-muted-foreground hover:text-amber-700 block duration-150">
+                                                className="text-gray-400 hover:text-amber-400 block duration-150 transition-colors">
                                                 <span>{item.name}</span>
                                             </Link>
                                         </li>
@@ -190,14 +290,14 @@ const HeroHeader = () => {
                             </div>
                         </div>
 
-                        <div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+                        <div className="bg-gray-900 group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-gray-800 p-6 shadow-2xl md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none">
                             <div className="lg:hidden">
                                 <ul className="space-y-6 text-base">
                                     {menuItems.map((item, index) => (
                                         <li key={index}>
                                             <Link
                                                 href={item.href}
-                                                className="text-muted-foreground hover:text-amber-700 block duration-150">
+                                                className="text-gray-400 hover:text-amber-400 block duration-150 transition-colors">
                                                 <span>{item.name}</span>
                                             </Link>
                                         </li>
@@ -209,7 +309,7 @@ const HeroHeader = () => {
                                     asChild
                                     variant="outline"
                                     size="sm"
-                                    className="border-amber-700 text-amber-700 hover:bg-amber-50">
+                                    className="border-amber-500/50 text-amber-400 hover:bg-amber-500/10 rounded-full">
                                     <Link href="#contact">
                                         <span>Visit Us</span>
                                     </Link>
@@ -217,7 +317,7 @@ const HeroHeader = () => {
                                 <Button
                                     asChild
                                     size="sm"
-                                    className="bg-amber-700 hover:bg-amber-800">
+                                    className="bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full">
                                     <Link href="#mass-times">
                                         <span>Mass Schedule</span>
                                     </Link>
@@ -233,9 +333,14 @@ const HeroHeader = () => {
 
 const ChurchLogo = ({ className }: { className?: string }) => {
     return (
-        <div className={cn('flex items-center gap-2', className)}>
-            <Church className="h-8 w-8 text-amber-700" />
-            <span className="font-bold text-lg text-amber-900">St. Ann's RCM</span>
-        </div>
+        <Link href="/" className={cn('flex items-center gap-2', className)}>
+            <div className="p-2 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl">
+                <Church className="h-6 w-6 text-white" />
+            </div>
+            <div className="flex flex-col">
+                <span className="font-display font-bold text-lg text-white">St. Ann's</span>
+                <span className="text-xs text-amber-400">RCM Church</span>
+            </div>
+        </Link>
     )
 }
