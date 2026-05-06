@@ -1,4 +1,6 @@
-import { HeroSection } from '@/components/hero-section'
+'use client'
+
+import { HeroSection, HeroHeader } from '@/components/hero-section'
 import { motion } from 'motion/react'
 import { Calendar, Clock, MapPin, Users, Cross, Sparkles } from 'lucide-react'
 
@@ -303,9 +305,4 @@ function SpecialEventCard({ title, date, time, location, description, index }: {
             </div>
         </motion.div>
     )
-}
-
-function HeroHeader() {
-    const { HeroHeader } = require('@/components/hero-section')
-    return <HeroHeader />
 }

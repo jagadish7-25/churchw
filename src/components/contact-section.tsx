@@ -177,7 +177,7 @@ function SocialLink({ icon, href, label }: { icon: React.ReactNode; href: string
         <a
             href={href}
             aria-label={label}
-            className="p-3 glass rounded-full border border-gray-800 text-gray-400 hover:text-amber-500 hover:border-amber-500/50 transition-colors"
+            className="p-3 glass rounded-full border border-gray-800 text-gray-400 hover:text-amber-500 hover:border-amber-500/50 hover:bg-amber-500/10 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-gray-950 active:scale-95"
         >
             {icon}
         </a>
@@ -218,7 +218,7 @@ function ContactForm({
                             required
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white transition-colors placeholder-gray-500"
+                            className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent focus:bg-gray-900 text-white transition-all duration-200 placeholder-gray-500 hover:border-gray-700"
                             placeholder="Your name"
                         />
                     </div>
@@ -233,7 +233,7 @@ function ContactForm({
                             required
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white transition-colors placeholder-gray-500"
+                            className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent focus:bg-gray-900 text-white transition-all duration-200 placeholder-gray-500 hover:border-gray-700"
                             placeholder="your@email.com"
                         />
                     </div>
@@ -249,7 +249,7 @@ function ContactForm({
                         required
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white transition-colors placeholder-gray-500"
+                        className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent focus:bg-gray-900 text-white transition-all duration-200 placeholder-gray-500 hover:border-gray-700"
                         placeholder="How can we help?"
                     />
                 </div>
@@ -264,7 +264,7 @@ function ContactForm({
                         required
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white transition-colors resize-none placeholder-gray-500"
+                        className="w-full px-4 py-3 bg-gray-900/50 border border-gray-800 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent focus:bg-gray-900 text-white transition-all duration-200 resize-none placeholder-gray-500 hover:border-gray-700"
                         placeholder="Your message..."
                     />
                 </div>
@@ -292,7 +292,7 @@ function ContactForm({
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full px-6 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold rounded-xl transition-all focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shine"
+                    className="w-full px-6 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold rounded-xl transition-all duration-200 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-amber-600 disabled:hover:to-amber-500 active:scale-[0.98] flex items-center justify-center gap-2 shine"
                 >
                     {isSubmitting ? (
                         <>

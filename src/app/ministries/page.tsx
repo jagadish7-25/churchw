@@ -1,4 +1,8 @@
-import { HeroSection } from '@/components/hero-section'
+'use client'
+
+'use client'
+
+import { HeroSection, HeroHeader } from '@/components/hero-section'
 import { motion } from 'motion/react'
 import { Church, Heart, Users, BookOpen, Music, Baby, Utensils, HandHeart, Calendar } from 'lucide-react'
 
@@ -178,9 +182,4 @@ function MinistryCard({ icon, title, description, schedule, color, index }: {
             </div>
         </motion.div>
     )
-}
-
-function HeroHeader() {
-    const { HeroHeader } = require('@/components/hero-section')
-    return <HeroHeader />
 }

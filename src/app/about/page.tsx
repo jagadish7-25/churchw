@@ -1,6 +1,6 @@
 'use client'
 
-import { HeroSection } from '@/components/hero-section'
+import { HeroSection, HeroHeader } from '@/components/hero-section'
 import { motion } from 'motion/react'
 import { Church, Heart, Users, BookOpen, Cross, Sparkles, Calendar } from 'lucide-react'
 
@@ -201,9 +201,4 @@ function ValueCard({ icon, title, description }: { icon: React.ReactNode; title:
             <p className="text-sm text-gray-400">{description}</p>
         </motion.div>
     )
-}
-
-function HeroHeader() {
-    const { HeroHeader } = require('@/components/hero-section')
-    return <HeroHeader />
 }

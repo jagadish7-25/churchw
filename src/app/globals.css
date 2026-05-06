@@ -1657,3 +1657,95 @@ html {
   perspective: 4000px;
   transform-style: preserve-3d;
 }
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-meteor,
+  .animate-pulse,
+  .animate-float,
+  .animate-pulse-glow,
+  .animate-shimmer,
+  .twinkle,
+  .breathe,
+  .wave,
+  .float-particle,
+  .float-orb,
+  .glowing-orb,
+  .float-element,
+  .floating-card,
+  .float-3d,
+  .float-enhanced,
+  .float-elements-3d,
+  .float-enhanced-3d,
+  .float-elements-enhanced,
+  .float-ultimate,
+  .glowing-text,
+  .glowing-text-anim,
+  .glowing-text-enhanced,
+  .glowing-text-ultimate,
+  .glowing-border,
+  .glowing-border-anim,
+  .glowing-border-enhanced,
+  .glowing-border-ultimate,
+  .rotate-3d,
+  .rotate-3d-element,
+  .rotate-border,
+  .rotate-gradient-border,
+  .aurora,
+  .shimmer-loading,
+  .morph,
+  .morph-border {
+    animation: none !important;
+  }
+
+  .card-3d:hover,
+  .card-3d-hover:hover,
+  .card-hover-3d-enhanced:hover,
+  .card-hover-ultimate:hover {
+    transform: none !important;
+  }
+
+  .shine:hover::before,
+  .shimmer::before {
+    animation: none !important;
+  }
+}
+
+/* Focus Visible for Keyboard Navigation */
+*:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Skip Link Styling */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
