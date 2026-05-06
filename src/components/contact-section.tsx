@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'motion/react'
-import { Phone, MapPin, Mail, Clock, Facebook, Instagram, Youtube } from 'lucide-react'
+import { Phone, MapPin, Mail, Clock, Share2, Image as ImageIcon, Video } from 'lucide-react'
 
 export function ContactSection() {
     return (
@@ -108,9 +108,9 @@ function ContactInfo() {
             <div className="mt-8">
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Follow Us</h4>
                 <div className="flex gap-4">
-                    <SocialLink icon={<Facebook className="h-5 w-5" />} href="#" label="Facebook" />
-                    <SocialLink icon={<Instagram className="h-5 w-5" />} href="#" label="Instagram" />
-                    <SocialLink icon={<Youtube className="h-5 w-5" />} href="#" label="YouTube" />
+                    <SocialLink icon={<Share2 className="h-5 w-5" />} href="#" label="Facebook" />
+                    <SocialLink icon={<ImageIcon className="h-5 w-5" />} href="#" label="Instagram" />
+                    <SocialLink icon={<Video className="h-5 w-5" />} href="#" label="YouTube" />
                 </div>
             </div>
         </motion.div>
